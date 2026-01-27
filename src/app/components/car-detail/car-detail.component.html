@@ -1,0 +1,107 @@
+<div class="min-h-screen bg-gray-50">
+  <div *ngIf="loading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+  </div>
+
+  <div *ngIf="!loading && car" class="max-w-4xl mx-auto p-6">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div class="md:flex">
+        <div class="md:w-1/2">
+          <img [src]="car.image" [alt]="car.modele" class="w-full h-96 object-cover">
+        </div>
+        <div class="md:w-1/2 p-8">
+          <div class="mb-4">
+            <button 
+              (click)="goBack()"
+              class="text-blue-600 hover:text-blue-800 flex items-center mb-4">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+              Retour à la liste
+            </button>
+          </div>
+
+          <h1 class="text-3xl font-bold text-gray-800 mb-2">
+            {{ getMarqueName() }} {{ car.modele }}
+          </h1>
+
+          <div class="mb-6">
+            <span [class]="car.disponibilite ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" 
+                  class="px-3 py-1 text-sm font-semibold rounded-full">
+              {{ car.disponibilite ? 'Disponible' : 'Indisponible' }}
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex justify-between items-center border-b pb-2">
+              <span class="text-gray-600 font-medium">Prix:</span>
+              <span class="text-2xl font-bold text-blue-600">{{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</span>
+            </div>
+
+            <div class="flex justify-between items-center border-b pb-2">
+              <span class="text-gray-600 font-medium">Carburant:</span>
+              <span class="text-gray-800 capitalize">{{ car.carburant }}</span>
+            </div>
+
+            <div class="flex justify-between items-center border-b pb-2">
+              <span class="text-gray-600 font-medium">Date de mise en vente:</span>
+              <span class="text-gray-800">{{ car.dateDeMiseEnVente }}</span>
+            </div>
+
+            <div class="flex justify-between items-center border-b pb-2">
+              <span class="text-gray-600 font-medium">Référence:</span>
+              <span class="text-gray-800">#{{ car.id }}</span>
+            </div>
+          </div>
+
+          <div class="mt-8 space-y-3">
+            <button 
+              *ngIf="car.disponibilite"
+              class="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium">
+              Contacter le vendeur
+            </button>
+            <button 
+              class="w-full bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium">
+              Demander un essai
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">Caractéristiques</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="font-semibold text-gray-700 mb-2">Informations générales</h3>
+          <ul class="space-y-1 text-sm text-gray-600">
+            <li><strong>Marque:</strong> {{ getMarqueName() }}</li>
+            <li><strong>Modèle:</strong> {{ car.modele }}</li>
+            <li><strong>Type de carburant:</strong> {{ car.carburant }}</li>
+            <li><strong>Statut:</strong> {{ car.disponibilite ? 'Disponible' : 'Vendu' }}</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <h3 class="font-semibold text-gray-700 mb-2">Informations commerciales</h3>
+          <ul class="space-y-1 text-sm text-gray-600">
+            <li><strong>Prix:</strong> {{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</li>
+            <li><strong>Date d'arrivée:</strong> {{ car.dateDeMiseEnVente }}</li>
+            <li><strong>Référence:</strong> #{{ car.id }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !car" class="max-w-4xl mx-auto p-6">
+    <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+      <h1 class="text-2xl font-bold text-gray-800 mb-4">Véhicule non trouvé</h1>
+      <p class="text-gray-600 mb-6">Le véhicule que vous recherchez n'existe pas ou a été supprimé.</p>
+      <button 
+        (click)="goBack()"
+        class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">
+        Retour à la liste
+      </button>
+    </div>
+  </div>
+</div>
