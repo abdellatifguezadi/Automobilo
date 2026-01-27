@@ -1,0 +1,29 @@
+<div class="w-64 bg-white shadow-lg">
+  <div class="p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Marques</h2>
+    <div class="space-y-2">
+      <button 
+        (click)="onMarqueClick(null)"
+        [class]="selectedMarque === null ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'"
+        class="w-full text-left px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors">
+        Toutes les marques
+      </button>
+      <button 
+        *ngFor="let marque of marques"
+        (click)="onMarqueClick(marque.id)"
+        [class]="selectedMarque === marque.id ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'"
+        class="w-full text-left px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors">
+        {{ marque.titre }}
+      </button>
+    </div>
+    
+    <div class="mt-6">
+      <button 
+        (click)="onAvailabilityToggle()"
+        [class]="showAvailableOnly ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-700'"
+        class="w-full px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white transition-colors">
+        {{ showAvailableOnly ? 'Toutes' : 'Disponibles uniquement' }}
+      </button>
+    </div>
+  </div>
+</div>

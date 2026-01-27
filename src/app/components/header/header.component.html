@@ -1,0 +1,8 @@
+<div class="mb-6 flex justify-between items-center">
+  <h1 class="text-3xl font-bold text-gray-800">Catalogue Automobiles</h1>
+  <button 
+    (click)="onToggleViewMode()"
+    class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+    {{ viewMode === 'grid' ? 'Vue Tableau' : 'Vue Grille' }}
+  </button>
+</div>

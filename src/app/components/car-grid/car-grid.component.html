@@ -1,0 +1,20 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <div *ngFor="let car of cars" class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+    <img [src]="car.image" [alt]="car.modele" class="w-full h-48 object-cover">
+    <div class="p-4">
+      <h3 class="text-xl font-semibold text-gray-800">{{ getMarqueName(car.marque_id) }} {{ car.modele }}</h3>
+      <p class="text-2xl font-bold text-blue-600 mt-2">{{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</p>
+      <div class="flex justify-between items-center mt-3">
+        <span class="text-sm text-gray-600">{{ car.carburant }}</span>
+        <span [class]="car.disponibilite ? 'text-green-600' : 'text-red-600'" class="text-sm font-medium">
+          {{ car.disponibilite ? 'Disponible' : 'Indisponible' }}
+        </span>
+      </div>
+      <div class="mt-4">
+        <a [routerLink]="['/car', car.id]" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors inline-block text-center">
+          Voir détails
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
