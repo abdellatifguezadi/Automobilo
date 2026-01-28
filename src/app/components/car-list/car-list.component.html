@@ -44,19 +44,23 @@
         </div>
       </div>
 
-      <app-car-grid
-        *ngIf="viewMode === 'grid'"
-        [cars]="filteredCars">
-      </app-car-grid>
+      @if (viewMode === 'grid') {
+        <app-car-grid
+          [cars]="filteredCars">
+        </app-car-grid>
+      }
 
-      <app-car-table
-        *ngIf="viewMode === 'table'"
-        [cars]="filteredCars">
-      </app-car-table>
+      @if (viewMode === 'table') {
+        <app-car-table
+          [cars]="filteredCars">
+        </app-car-table>
+      }
 
-      <div *ngIf="filteredCars.length === 0" class="text-center py-12">
-        <p class="text-gray-500 text-lg">Aucune voiture trouvée avec les filtres sélectionnés.</p>
-      </div>
+      @if (filteredCars.length === 0) {
+        <div class="text-center py-12">
+          <p class="text-gray-500 text-lg">Aucune voiture trouvée avec les filtres sélectionnés.</p>
+        </div>
+      }
     </div>
   </div>
 </div>

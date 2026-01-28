@@ -16,15 +16,16 @@
         class="w-full text-left px-4 py-2.5 font-medium focus:outline-none">
         Toutes les marques
       </button>
-      <button
-        *ngFor="let marque of marques"
-        (click)="onMarqueClick(marque.id)"
-        [class]="selectedMarque === marque.id
-          ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md'
-          : 'bg-gray-50 text-gray-700 hover:bg-red-50 hover:text-red-600'"
-        class="w-full text-left px-4 py-2.5 font-medium focus:outline-none">
-        {{ marque.titre }}
-      </button>
+      @for (marque of marques; track marque.id) {
+        <button
+          (click)="onMarqueClick(marque.id)"
+          [class]="selectedMarque === marque.id
+            ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md'
+            : 'bg-gray-50 text-gray-700 hover:bg-red-50 hover:text-red-600'"
+          class="w-full text-left px-4 py-2.5 font-medium focus:outline-none">
+          {{ marque.titre }}
+        </button>
+      }
     </div>
   </div>
 

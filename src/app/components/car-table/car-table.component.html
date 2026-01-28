@@ -12,7 +12,8 @@
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
-      <tr *ngFor="let car of cars" class="hover:bg-gray-50 transition-colors duration-150">
+      @for (car of cars; track car.id) {
+        <tr class="hover:bg-gray-50 transition-colors duration-150">
         <td class="px-6 py-4 whitespace-nowrap">
           <img [src]="car.image" [alt]="car.modele" class="w-16 h-16 object-cover">
         </td>
@@ -47,6 +48,7 @@
           </a>
         </td>
       </tr>
+      }
     </tbody>
   </table>
 </div>

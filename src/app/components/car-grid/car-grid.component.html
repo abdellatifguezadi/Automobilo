@@ -1,5 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div *ngFor="let car of cars" class="bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 border border-gray-200">
+    @for (car of cars; track car.id) {
+      <div class="bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 border border-gray-200">
       <div class="relative">
         <img [src]="car.image" [alt]="car.modele" class="w-full h-48 object-cover">
         <div class="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-transparent"></div>
@@ -38,6 +39,6 @@
           </svg>
         </a>
       </div>
-    </div>
+    }
   </div>
 </div>

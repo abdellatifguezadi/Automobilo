@@ -1,11 +1,14 @@
 <div class="bg-gray-50 min-h-screen">
   <!-- Loading State -->
-  <div *ngIf="loading" class="flex justify-center items-center h-96">
-    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
-  </div>
+  @if (loading) {
+    <div class="flex justify-center items-center h-96">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
+    </div>
+  }
 
   <!-- Car Details -->
-  <div *ngIf="!loading && car" class="max-w-6xl mx-auto p-8">
+  @if (!loading && car) {
+    <div class="max-w-6xl mx-auto p-8">
 
     <!-- Back Button -->
     <div class="mb-8">
@@ -99,11 +102,13 @@
       </div>
 
     </div>
-  </div>
+    </div>
+  }
 
   <!-- Car Not Found -->
-  <div *ngIf="!loading && !car" class="max-w-2xl mx-auto p-8">
-    <div class="bg-white p-16 text-center border border-gray-200">
+  @if (!loading && !car) {
+    <div class="max-w-2xl mx-auto p-8">
+      <div class="bg-white p-16 text-center border border-gray-200">
       <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
@@ -118,5 +123,6 @@
         <span>Retour à la liste</span>
       </button>
     </div>
-  </div>
+    </div>
+  }
 </div>
