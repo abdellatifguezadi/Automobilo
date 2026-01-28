@@ -1,29 +1,57 @@
-<div class="w-64 bg-white shadow-lg">
-  <div class="p-6">
-    <h2 class="text-xl font-bold text-gray-800 mb-4">Marques</h2>
+<div class="w-64 bg-white shadow-lg border-r border-gray-200 h-screen flex flex-col">
+  <div class="p-6 flex-1 overflow-y-auto">
+    <div class="flex items-center space-x-2 mb-6">
+      <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+      </svg>
+      <h2 class="text-xl font-bold text-gray-800">Marques</h2>
+    </div>
+
     <div class="space-y-2">
-      <button 
+      <button
         (click)="onMarqueClick(null)"
-        [class]="selectedMarque === null ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'"
-        class="w-full text-left px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors">
+        [class]="selectedMarque === null ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md' : 'bg-gray-50 text-gray-700 hover:bg-gray-100'"
+        class="w-full text-left px-4 py-2.5 rounded-lg transition-all duration-200 font-medium focus:outline-none">
         Toutes les marques
       </button>
-      <button 
+      <button
         *ngFor="let marque of marques"
         (click)="onMarqueClick(marque.id)"
-        [class]="selectedMarque === marque.id ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'"
-        class="w-full text-left px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition-colors">
+        [class]="selectedMarque === marque.id ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md' : 'bg-gray-50 text-gray-700 hover:bg-gray-100'"
+        class="w-full text-left px-4 py-2.5 rounded-lg transition-all duration-200 font-medium focus:outline-none">
         {{ marque.titre }}
       </button>
     </div>
-    
-    <div class="mt-6">
-      <button 
+
+    <div class="mt-6 pt-6 border-t border-gray-200">
+      <div class="flex items-center space-x-2 mb-3">
+        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+        </svg>
+        <h3 class="text-sm font-semibold text-gray-700">Disponibilité</h3>
+      </div>
+      <button
         (click)="onAvailabilityToggle()"
-        [class]="showAvailableOnly ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-700'"
-        class="w-full px-4 py-2 rounded-lg hover:bg-green-500 hover:text-white transition-colors">
-        {{ showAvailableOnly ? 'Toutes' : 'Disponibles uniquement' }}
+        [class]="showAvailableOnly ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md' : 'bg-gray-50 text-gray-700 hover:bg-gray-100'"
+        class="w-full px-4 py-2.5 rounded-lg transition-all duration-200 font-medium focus:outline-none flex items-center justify-between">
+        <span>{{ showAvailableOnly ? 'Toutes' : 'Disponibles uniquement' }}</span>
+        @if (showAvailableOnly) {
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        }
       </button>
     </div>
+  </div>
+
+  <div class="p-6 border-t border-gray-200 bg-gray-50">
+    <button
+      (click)="onLogout()"
+      class="w-full flex items-center justify-center space-x-2 px-4 py-2.5 bg-gray-800 text-white rounded-lg font-semibold hover:bg-gray-900 transition-all duration-200 focus:outline-none">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+      </svg>
+      <span>Déconnexion</span>
+    </button>
   </div>
 </div>

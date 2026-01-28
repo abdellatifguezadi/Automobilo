@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Car, Marque } from '../../models/car.model';
 import { CarService } from '../../services/car.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HeaderComponent } from '../header/header.component';
 import { CarGridComponent } from '../car-grid/car-grid.component';
 import { CarTableComponent } from '../car-table/car-table.component';
+import * as AuthActions from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-car-list',
@@ -22,7 +25,11 @@ export class CarListComponent implements OnInit {
   selectedMarque: number | null = null;
   showAvailableOnly = false;
 
-  constructor(private carService: CarService) {}
+  constructor(
+    private carService: CarService,
+    private router: Router,
+    private store: Store
+  ) {}
 
   ngOnInit() {
     this.loadCars();
@@ -62,5 +69,10 @@ export class CarListComponent implements OnInit {
       const availabilityMatch = !this.showAvailableOnly || car.disponibilite;
       return marqueMatch && availabilityMatch;
     });
+  }
+
+  onLogout() {
+    this.store.dispatch(AuthActions.logout());
+    this.router.navigate(['/login']);
   }
 }
