@@ -2,7 +2,8 @@
     <div *ngFor="let car of cars" class="bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 border border-gray-200">
       <div class="relative">
         <img [src]="car.image" [alt]="car.modele" class="w-full h-48 object-cover">
-        <div class="absolute top-3 right-3">
+        <div class="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-transparent"></div>
+        <div class="absolute top-3 right-3 z-10">
           <span [class]="car.disponibilite ? 'bg-green-500' : 'bg-red-500'"
                 class="px-2.5 py-1 text-white text-xs font-semibold">
             {{ car.disponibilite ? 'Disponible' : 'Indisponible' }}
