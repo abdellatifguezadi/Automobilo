@@ -13,9 +13,10 @@ export class SidebarComponent {
   @Input() marques: Marque[] = [];
   @Input() selectedMarque: number | null = null;
   @Input() showAvailableOnly = false;
-  
+
   @Output() marqueSelected = new EventEmitter<number | null>();
   @Output() availabilityToggled = new EventEmitter<void>();
+  @Output() logout = new EventEmitter<void>();
 
   onMarqueClick(marqueId: number | null) {
     this.marqueSelected.emit(marqueId);
@@ -23,5 +24,9 @@ export class SidebarComponent {
 
   onAvailabilityToggle() {
     this.availabilityToggled.emit();
+  }
+
+  onLogout() {
+    this.logout.emit();
   }
 }

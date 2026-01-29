@@ -1,107 +1,128 @@
-<div class="min-h-screen bg-gray-50">
-  <div *ngIf="loading" class="flex justify-center items-center h-64">
-    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
-  </div>
-
-  <div *ngIf="!loading && car" class="max-w-4xl mx-auto p-6">
-    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-      <div class="md:flex">
-        <div class="md:w-1/2">
-          <img [src]="car.image" [alt]="car.modele" class="w-full h-96 object-cover">
-        </div>
-        <div class="md:w-1/2 p-8">
-          <div class="mb-4">
-            <button 
-              (click)="goBack()"
-              class="text-blue-600 hover:text-blue-800 flex items-center mb-4">
-              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-              </svg>
-              Retour à la liste
-            </button>
-          </div>
-
-          <h1 class="text-3xl font-bold text-gray-800 mb-2">
-            {{ getMarqueName() }} {{ car.modele }}
-          </h1>
-
-          <div class="mb-6">
-            <span [class]="car.disponibilite ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" 
-                  class="px-3 py-1 text-sm font-semibold rounded-full">
-              {{ car.disponibilite ? 'Disponible' : 'Indisponible' }}
-            </span>
-          </div>
-
-          <div class="space-y-4">
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="text-gray-600 font-medium">Prix:</span>
-              <span class="text-2xl font-bold text-blue-600">{{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</span>
-            </div>
-
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="text-gray-600 font-medium">Carburant:</span>
-              <span class="text-gray-800 capitalize">{{ car.carburant }}</span>
-            </div>
-
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="text-gray-600 font-medium">Date de mise en vente:</span>
-              <span class="text-gray-800">{{ car.dateDeMiseEnVente }}</span>
-            </div>
-
-            <div class="flex justify-between items-center border-b pb-2">
-              <span class="text-gray-600 font-medium">Référence:</span>
-              <span class="text-gray-800">#{{ car.id }}</span>
-            </div>
-          </div>
-
-          <div class="mt-8 space-y-3">
-            <button 
-              *ngIf="car.disponibilite"
-              class="w-full bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors font-medium">
-              Contacter le vendeur
-            </button>
-            <button 
-              class="w-full bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors font-medium">
-              Demander un essai
-            </button>
-          </div>
-        </div>
-      </div>
+<div class="bg-gray-50 min-h-screen">
+  <!-- Loading State -->
+  @if (loading) {
+    <div class="flex justify-center items-center h-96">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
     </div>
+  }
 
-    <div class="mt-8 bg-white rounded-lg shadow-lg p-6">
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">Caractéristiques</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-gray-50 p-4 rounded-lg">
-          <h3 class="font-semibold text-gray-700 mb-2">Informations générales</h3>
-          <ul class="space-y-1 text-sm text-gray-600">
-            <li><strong>Marque:</strong> {{ getMarqueName() }}</li>
-            <li><strong>Modèle:</strong> {{ car.modele }}</li>
-            <li><strong>Type de carburant:</strong> {{ car.carburant }}</li>
-            <li><strong>Statut:</strong> {{ car.disponibilite ? 'Disponible' : 'Vendu' }}</li>
-          </ul>
-        </div>
-        <div class="bg-gray-50 p-4 rounded-lg">
-          <h3 class="font-semibold text-gray-700 mb-2">Informations commerciales</h3>
-          <ul class="space-y-1 text-sm text-gray-600">
-            <li><strong>Prix:</strong> {{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</li>
-            <li><strong>Date d'arrivée:</strong> {{ car.dateDeMiseEnVente }}</li>
-            <li><strong>Référence:</strong> #{{ car.id }}</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Car Details -->
+  @if (!loading && car) {
+    <div class="max-w-6xl mx-auto p-8">
 
-  <div *ngIf="!loading && !car" class="max-w-4xl mx-auto p-6">
-    <div class="bg-white rounded-lg shadow-lg p-8 text-center">
-      <h1 class="text-2xl font-bold text-gray-800 mb-4">Véhicule non trouvé</h1>
-      <p class="text-gray-600 mb-6">Le véhicule que vous recherchez n'existe pas ou a été supprimé.</p>
-      <button 
+    <!-- Back Button -->
+    <div class="mb-8">
+      <button
         (click)="goBack()"
-        class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">
+        class="text-gray-600 hover:text-red-600 flex items-center font-medium focus:outline-none">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
         Retour à la liste
       </button>
     </div>
-  </div>
+
+    <!-- Main Card -->
+    <div class="bg-white border border-gray-200 overflow-hidden flex">
+
+      <!-- Car Image - Full Height, No Padding, No Border -->
+      <div class="w-96 flex-shrink-0">
+        <img [src]="car.image" [alt]="car.modele" class="w-full h-full object-cover">
+      </div>
+
+      <!-- Content Section -->
+      <div class="flex-1 flex flex-col">
+
+        <!-- Header Section -->
+        <div class="p-6 border-b border-gray-200">
+          <p class="text-2xl font-bold text-red-600 uppercase tracking-wide mb-2">{{ getMarqueName() }}</p>
+          <h1 class="text-xl font-bold text-gray-900 mb-4">{{ car.modele }}</h1>
+
+          <div class="flex items-center gap-4 mb-6">
+            <span [class]="car.disponibilite ? 'bg-green-500' : 'bg-red-500'"
+                  class="px-3 py-1 text-white text-xs font-semibold">
+              {{ car.disponibilite ? 'Disponible' : 'Indisponible' }}
+            </span>
+            <div class="flex items-center text-sm text-gray-600">
+              <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
+                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"></path>
+              </svg>
+              <span class="font-medium">{{ car.carburant }}</span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 p-6 border border-gray-200">
+            <p class="text-sm text-gray-500 font-medium mb-2">Prix du véhicule</p>
+            <p class="text-4xl font-bold text-gray-900">{{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</p>
+          </div>
+        </div>
+
+        <!-- Information Grid -->
+        <div class="p-6 flex-1">
+          <h2 class="text-xl font-bold text-gray-900 mb-6">Informations détaillées</h2>
+
+          <div class="grid grid-cols-2 gap-x-12 gap-y-6">
+
+            <div class="flex justify-between py-4 border-b border-gray-200">
+              <span class="text-gray-600 font-medium">Marque</span>
+              <span class="text-gray-900 font-semibold">{{ getMarqueName() }}</span>
+            </div>
+
+            <div class="flex justify-between py-4 border-b border-gray-200">
+              <span class="text-gray-600 font-medium">Modèle</span>
+              <span class="text-gray-900 font-semibold">{{ car.modele }}</span>
+            </div>
+
+            <div class="flex justify-between py-4 border-b border-gray-200">
+              <span class="text-gray-600 font-medium">Carburant</span>
+              <span class="text-gray-900 font-semibold capitalize">{{ car.carburant }}</span>
+            </div>
+
+            <div class="flex justify-between py-4 border-b border-gray-200">
+              <span class="text-gray-600 font-medium">Disponibilité</span>
+              <span [class]="car.disponibilite ? 'text-green-600' : 'text-red-600'" class="font-semibold">
+                {{ car.disponibilite ? 'Disponible' : 'Indisponible' }}
+              </span>
+            </div>
+
+            <div class="flex justify-between py-4 border-b border-gray-200">
+              <span class="text-gray-600 font-medium">Date de mise en vente</span>
+              <span class="text-gray-900 font-semibold">{{ car.dateDeMiseEnVente }}</span>
+            </div>
+
+            <div class="flex justify-between py-4 border-b border-gray-200">
+              <span class="text-gray-600 font-medium">Référence</span>
+              <span class="text-gray-900 font-mono font-semibold">#{{ car.id }}</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    </div>
+  }
+
+  <!-- Car Not Found -->
+  @if (!loading && !car) {
+    <div class="max-w-2xl mx-auto p-8">
+      <div class="bg-white p-16 text-center border border-gray-200">
+      <svg class="w-20 h-20 text-gray-300 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">Véhicule non trouvé</h1>
+      <p class="text-gray-600 text-lg mb-8">Le véhicule que vous recherchez n'existe pas ou a été supprimé.</p>
+      <button
+        (click)="goBack()"
+        class="bg-gradient-to-r from-red-600 to-red-700 text-white px-8 py-3 hover:from-red-700 hover:to-red-800 font-semibold focus:outline-none inline-flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        <span>Retour à la liste</span>
+      </button>
+    </div>
+    </div>
+  }
 </div>

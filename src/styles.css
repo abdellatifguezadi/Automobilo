@@ -3,3 +3,32 @@
 @tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
+
+/* Hide scrollbar globally */
+* {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE 10+ */
+}
+
+*::-webkit-scrollbar {
+  display: none;               /* Chrome, Edge, Safari */
+}
+
+html, body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Smooth button transitions for sidebar */
+button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Ensure smooth transitions for all interactive elements */
+button, a, input {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

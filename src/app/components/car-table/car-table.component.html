@@ -1,39 +1,54 @@
-<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="bg-white shadow-sm overflow-hidden border border-gray-200">
   <table class="w-full">
-    <thead class="bg-gray-50">
+    <thead class="bg-gray-50 border-b border-gray-200">
       <tr>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Marque</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Modèle</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prix</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Carburant</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Disponibilité</th>
-        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Image</th>
+        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Marque</th>
+        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Modèle</th>
+        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Prix</th>
+        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Carburant</th>
+        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Disponibilité</th>
+        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Actions</th>
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
-      <tr *ngFor="let car of cars" class="hover:bg-gray-50">
+      @for (car of cars; track car.id) {
+        <tr class="hover:bg-gray-50 transition-colors duration-150">
         <td class="px-6 py-4 whitespace-nowrap">
-          <img [src]="car.image" [alt]="car.modele" class="w-16 h-16 object-cover rounded-lg">
+          <img [src]="car.image" [alt]="car.modele" class="w-16 h-16 object-cover">
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-          {{ getMarqueName(car.marque_id) }}
+        <td class="px-6 py-4 whitespace-nowrap">
+          <span class="text-sm font-semibold text-red-600 uppercase tracking-wide">{{ getMarqueName(car.marque_id) }}</span>
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ car.modele }}</td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-blue-600">
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ car.modele }}</td>
+        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
           {{ car.prix | currency:'EUR':'symbol':'1.0-0' }}
         </td>
-        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ car.carburant }}</td>
         <td class="px-6 py-4 whitespace-nowrap">
-          <span [class]="car.disponibilite ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" 
-                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+          <div class="flex items-center text-sm text-gray-600">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+            </svg>
+            <span>{{ car.carburant }}</span>
+          </div>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <span [class]="car.disponibilite ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-700'"
+                class="px-2 py-1 inline-flex text-xs leading-5 font-medium">
             {{ car.disponibilite ? 'Disponible' : 'Indisponible' }}
           </span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-          <a [routerLink]="['/car', car.id]" class="text-blue-600 hover:text-blue-900">Voir</a>
+          <a [routerLink]="['/car', car.id]"
+             class="inline-flex items-center px-3 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white text-sm font-semibold hover:from-red-700 hover:to-red-800 transition-colors duration-200 focus:outline-none">
+            <span>Voir</span>
+            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
         </td>
       </tr>
+      }
     </tbody>
   </table>
 </div>

@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Car, Marque } from '../../models/car.model';
 import { CarService } from '../../services/car.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HeaderComponent } from '../header/header.component';
 import { CarGridComponent } from '../car-grid/car-grid.component';
 import { CarTableComponent } from '../car-table/car-table.component';
+import * as AuthActions from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-car-list',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, HeaderComponent, CarGridComponent, CarTableComponent],
+  imports: [CommonModule, FormsModule, SidebarComponent, HeaderComponent, CarGridComponent, CarTableComponent],
   templateUrl: './car-list.component.html',
   styleUrl: './car-list.component.css'
 })
@@ -21,8 +25,13 @@ export class CarListComponent implements OnInit {
   viewMode: 'table' | 'grid' = 'grid';
   selectedMarque: number | null = null;
   showAvailableOnly = false;
+  searchQuery = '';
 
-  constructor(private carService: CarService) {}
+  constructor(
+    private carService: CarService,
+    private router: Router,
+    private store: Store
+  ) {}
 
   ngOnInit() {
     this.loadCars();
@@ -56,11 +65,33 @@ export class CarListComponent implements OnInit {
     this.viewMode = this.viewMode === 'table' ? 'grid' : 'table';
   }
 
+  onSearch() {
+    this.applyFilters();
+  }
+
+  setAvailabilityFilter(available: boolean) {
+    this.showAvailableOnly = available;
+    this.applyFilters();
+  }
+
   applyFilters() {
     this.filteredCars = this.cars.filter(car => {
       const marqueMatch = !this.selectedMarque || car.marque_id === this.selectedMarque;
       const availabilityMatch = !this.showAvailableOnly || car.disponibilite;
-      return marqueMatch && availabilityMatch;
+
+      const searchLower = this.searchQuery.toLowerCase();
+      const marqueNom = this.carService.getMarqueById(car.marque_id)?.titre.toLowerCase() || '';
+      const searchMatch = !this.searchQuery ||
+        marqueNom.includes(searchLower) ||
+        car.modele.toLowerCase().includes(searchLower) ||
+        car.carburant.toLowerCase().includes(searchLower);
+
+      return marqueMatch && availabilityMatch && searchMatch;
     });
+  }
+
+  onLogout() {
+    this.store.dispatch(AuthActions.logout());
+    this.router.navigate(['/login']);
   }
 }
