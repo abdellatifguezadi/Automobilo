@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable, Subject, combineLatest } from 'rxjs';
+import { takeUntil, map } from 'rxjs/operators';
 import { Car, Marque } from '../../models/car.model';
-import { CarService } from '../../services/car.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HeaderComponent } from '../header/header.component';
 import { CarGridComponent } from '../car-grid/car-grid.component';
 import { CarTableComponent } from '../car-table/car-table.component';
 import * as AuthActions from '../../store/auth/auth.actions';
+import * as CarActions from '../../store/cars/car.actions';
+import * as CarSelectors from '../../store/cars/car.selectors';
 
 @Component({
   selector: 'app-car-list',
@@ -18,47 +21,46 @@ import * as AuthActions from '../../store/auth/auth.actions';
   templateUrl: './car-list.component.html',
   styleUrl: './car-list.component.css'
 })
-export class CarListComponent implements OnInit {
-  cars: Car[] = [];
-  marques: Marque[] = [];
+export class CarListComponent implements OnInit, OnDestroy {
   filteredCars: Car[] = [];
   viewMode: 'table' | 'grid' = 'grid';
   selectedMarque: number | null = null;
   showAvailableOnly = false;
   searchQuery = '';
+  
+  private destroy$ = new Subject<void>();
+  private marques: Marque[] = [];
+
+  cars$: Observable<Car[]>;
+  marques$: Observable<Marque[]>;
+  loading$: Observable<boolean>;
 
   constructor(
-    private carService: CarService,
     private router: Router,
     private store: Store
-  ) {}
+  ) {
+    this.cars$ = this.store.select(CarSelectors.selectCars);
+    this.marques$ = this.store.select(CarSelectors.selectMarques);
+    this.loading$ = this.store.select(CarSelectors.selectLoading);
+  }
 
   ngOnInit() {
-    this.loadCars();
-    this.loadMarques();
+    this.store.dispatch(CarActions.loadCars());
+    this.store.dispatch(CarActions.loadMarques());
   }
-
-  loadCars() {
-    this.carService.getCars().subscribe(cars => {
-      this.cars = cars;
-      this.applyFilters();
-    });
-  }
-
-  loadMarques() {
-    this.carService.getMarques().subscribe(marques => {
-      this.marques = marques;
-    });
+  
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onMarqueSelected(marqueId: number | null) {
-    this.selectedMarque = marqueId;
-    this.applyFilters();
+    this.store.dispatch(CarActions.setMarqueFilter({ marqueId }));
   }
 
   onAvailabilityToggled() {
+    this.store.dispatch(CarActions.setAvailabilityFilter({ showAvailableOnly: !this.showAvailableOnly }));
     this.showAvailableOnly = !this.showAvailableOnly;
-    this.applyFilters();
   }
 
   onViewModeToggled() {
@@ -66,21 +68,21 @@ export class CarListComponent implements OnInit {
   }
 
   onSearch() {
-    this.applyFilters();
+    this.store.dispatch(CarActions.setSearchQuery({ query: this.searchQuery }));
   }
 
   setAvailabilityFilter(available: boolean) {
     this.showAvailableOnly = available;
-    this.applyFilters();
+    this.store.dispatch(CarActions.setAvailabilityFilter({ showAvailableOnly: available }));
   }
 
-  applyFilters() {
-    this.filteredCars = this.cars.filter(car => {
+  private applyFilters(cars: Car[]) {
+    this.filteredCars = cars.filter(car => {
       const marqueMatch = !this.selectedMarque || car.marque_id === this.selectedMarque;
       const availabilityMatch = !this.showAvailableOnly || car.disponibilite;
 
       const searchLower = this.searchQuery.toLowerCase();
-      const marqueNom = this.carService.getMarqueById(car.marque_id)?.titre.toLowerCase() || '';
+      const marqueNom = this.getMarqueById(car.marque_id)?.titre.toLowerCase() || '';
       const searchMatch = !this.searchQuery ||
         marqueNom.includes(searchLower) ||
         car.modele.toLowerCase().includes(searchLower) ||
@@ -88,6 +90,10 @@ export class CarListComponent implements OnInit {
 
       return marqueMatch && availabilityMatch && searchMatch;
     });
+  }
+  
+  private getMarqueById(id: number): Marque | undefined {
+    return this.marques.find(marque => marque.id === id);
   }
 
   onLogout() {
