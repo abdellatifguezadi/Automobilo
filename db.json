@@ -1,0 +1,51 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "marque_id": 1,
+      "modele": "3008",
+      "prix": 280500,
+      "carburant": "diesel",
+      "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=400",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "21/01/2023"
+    },
+    {
+      "id": 2,
+      "marque_id": 2,
+      "modele": "Clio",
+      "prix": 185000,
+      "carburant": "essence",
+      "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "15/02/2023"
+    },
+    {
+      "id": 3,
+      "marque_id": 3,
+      "modele": "C3",
+      "prix": 195000,
+      "carburant": "essence",
+      "image": "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400",
+      "disponibilite": false,
+      "dateDeMiseEnVente": "10/03/2023"
+    },
+    {
+      "id": 4,
+      "marque_id": 4,
+      "modele": "X3",
+      "prix": 450000,
+      "carburant": "diesel",
+      "image": "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "05/04/2023"
+    }
+  ],
+  "marques": [
+    { "id": 1, "titre": "Peugeot" },
+    { "id": 2, "titre": "Renault" },
+    { "id": 3, "titre": "Citroën" },
+    { "id": 4, "titre": "BMW" },
+    { "id": 5, "titre": "Mercedes" }
+  ]
+}

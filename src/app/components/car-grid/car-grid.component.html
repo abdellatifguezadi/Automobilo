@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    @for (car of cars; track car.id) {
-      <div class="bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 border border-gray-200">
+  @for (car of cars$ | async; track car.id) {
+    <div class="bg-white shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 border border-gray-200">
       <div class="relative">
         <img [src]="car.image" [alt]="car.modele" class="w-full h-48 object-cover">
         <div class="absolute inset-0 bg-gradient-to-br from-black/50 via-transparent to-transparent"></div>
@@ -14,7 +14,7 @@
 
       <div class="p-5">
         <div class="mb-3">
-          <p class="text-sm font-bold text-red-600 uppercase tracking-wide">{{ getMarqueName(car.marque_id) }}</p>
+          <p class="text-sm font-bold text-red-600 uppercase tracking-wide">{{ getMarqueName(car.marque_id, (marques$ | async) || []) }}</p>
           <h3 class="text-base font-bold text-gray-600 mt-1">{{ car.modele }}</h3>
         </div>
 
@@ -26,19 +26,20 @@
           <span class="font-medium">{{ car.carburant }}</span>
         </div>
 
-      <div class="flex items-center justify-between pt-3 border-t border-gray-200">
-        <div>
-          <p class="text-xs text-gray-500 mb-0.5">Prix</p>
-          <p class="text-xl font-bold text-gray-900">{{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</p>
+        <div class="flex items-center justify-between pt-3 border-t border-gray-200">
+          <div>
+            <p class="text-xs text-gray-500 mb-0.5">Prix</p>
+            <p class="text-xl font-bold text-gray-900">{{ car.prix | currency:'EUR':'symbol':'1.0-0' }}</p>
+          </div>
+          <a [routerLink]="['/car', car.id]"
+             class="inline-flex items-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 text-sm font-semibold hover:from-red-700 hover:to-red-800 transition-colors duration-200 focus:outline-none">
+            <span>Détails</span>
+            <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
-        <a [routerLink]="['/car', car.id]"
-           class="inline-flex items-center bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 text-sm font-semibold hover:from-red-700 hover:to-red-800 transition-colors duration-200 focus:outline-none">
-          <span>Détails</span>
-          <svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </a>
       </div>
-    }
-  </div>
+    </div>
+  }
 </div>

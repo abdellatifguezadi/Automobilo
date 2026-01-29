@@ -12,13 +12,13 @@
       </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
-      @for (car of cars; track car.id) {
+      @for (car of cars$ | async; track car.id) {
         <tr class="hover:bg-gray-50 transition-colors duration-150">
         <td class="px-6 py-4 whitespace-nowrap">
           <img [src]="car.image" [alt]="car.modele" class="w-16 h-16 object-cover">
         </td>
         <td class="px-6 py-4 whitespace-nowrap">
-          <span class="text-sm font-semibold text-red-600 uppercase tracking-wide">{{ getMarqueName(car.marque_id) }}</span>
+          <span class="text-sm font-semibold text-red-600 uppercase tracking-wide">{{ getMarqueName(car.marque_id, (marques$ | async) || []) }}</span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ car.modele }}</td>
         <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">

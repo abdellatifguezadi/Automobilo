@@ -6,7 +6,7 @@
 
   <div class="flex">
     <app-sidebar
-      [marques]="marques"
+      [marques]="(marques$ | async) || []"
       [selectedMarque]="selectedMarque"
       [showAvailableOnly]="showAvailableOnly"
       (marqueSelected)="onMarqueSelected($event)"
@@ -44,22 +44,24 @@
         </div>
       </div>
 
-      @if (viewMode === 'grid') {
-        <app-car-grid
-          [cars]="filteredCars">
-        </app-car-grid>
-      }
-
-      @if (viewMode === 'table') {
-        <app-car-table
-          [cars]="filteredCars">
-        </app-car-table>
-      }
-
-      @if (filteredCars.length === 0) {
+      @if (loading$ | async) {
         <div class="text-center py-12">
-          <p class="text-gray-500 text-lg">Aucune voiture trouvée avec les filtres sélectionnés.</p>
+          <p class="text-gray-500 text-lg">Chargement...</p>
         </div>
+      } @else {
+        @if (viewMode === 'grid') {
+          <app-car-grid></app-car-grid>
+        }
+
+        @if (viewMode === 'table') {
+          <app-car-table></app-car-table>
+        }
+
+        @if ((cars$ | async)?.length === 0) {
+          <div class="text-center py-12">
+            <p class="text-gray-500 text-lg">Aucune voiture trouvée avec les filtres sélectionnés.</p>
+          </div>
+        }
       }
     </div>
   </div>

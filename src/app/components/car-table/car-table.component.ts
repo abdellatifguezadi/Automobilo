@@ -1,8 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Car } from '../../models/car.model';
-import { CarService } from '../../services/car.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Car, Marque } from '../../models/car.model';
+import * as CarSelectors from '../../store/cars/car.selectors';
 
 @Component({
   selector: 'app-car-table',
@@ -11,12 +13,18 @@ import { CarService } from '../../services/car.service';
   templateUrl: './car-table.component.html',
   styleUrl: './car-table.component.css'
 })
-export class CarTableComponent {
-  @Input() cars: Car[] = [];
+export class CarTableComponent implements OnInit {
+  cars$: Observable<Car[]>;
+  marques$: Observable<Marque[]>;
 
-  constructor(private carService: CarService) {}
+  constructor(private store: Store) {
+    this.cars$ = this.store.select(CarSelectors.selectFilteredCars);
+    this.marques$ = this.store.select(CarSelectors.selectMarques);
+  }
 
-  getMarqueName(marqueId: number): string {
-    return this.carService.getMarqueById(marqueId)?.titre || 'Unknown';
+  ngOnInit() {}
+
+  getMarqueName(marqueId: number, marques: Marque[]): string {
+    return marques.find(marque => marque.id === marqueId)?.titre || 'Unknown';
   }
 }
