@@ -25,4 +25,8 @@ export class CarService {
   getMarqueById(id: number): Observable<Marque> {
     return this.http.get<Marque>(`${this.apiUrl}/marques/${id}`);
   }
+
+  createCar(car: Omit<Car, 'id'>): Observable<Car>{
+    return this.http.post<Car>(`${this.apiUrl}/cars`, car);
+  }
 }
