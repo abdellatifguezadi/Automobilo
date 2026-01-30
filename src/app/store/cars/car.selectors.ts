@@ -18,7 +18,6 @@ export const selectFilteredCars = createSelector(
     return cars.filter(car => {
       const marqueMatch = !filters.marqueId || car.marque_id === filters.marqueId;
       const availabilityMatch = !filters.showAvailableOnly || car.disponibilite;
-
       const searchLower = filters.searchQuery.toLowerCase();
       const marqueNom = marques.find(m => m.id === car.marque_id)?.titre.toLowerCase() || '';
       const searchMatch = !filters.searchQuery ||
@@ -38,4 +37,14 @@ export const selectSelectedCarMarqueName = createSelector(
     if (!car) return '';
     return marques.find(m => m.id === car.marque_id)?.titre || 'Unknown';
   }
+);
+
+export const selectSelectedMarque = createSelector(
+  selectFilters,
+  filters => filters.marqueId
+);
+
+export const selectShowAvailableOnly = createSelector(
+  selectFilters,
+  filters => filters.showAvailableOnly
 );

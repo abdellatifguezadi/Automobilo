@@ -14,11 +14,11 @@ export interface AuthState {
 
 
 export const initialState: AuthState = {
-  user: null,
-  token: null,
+  user: JSON.parse(localStorage.getItem('user') || 'null'),
+  token: localStorage.getItem('token'),
   loading: false,
   error: null,
-  isAuthenticated: false
+  isAuthenticated: !!localStorage.getItem('token')
 };
 
 
@@ -46,8 +46,12 @@ export const authReducer = createReducer(
     error
   })),
 
-  on(AuthActions.logout, () => ({
-    ...initialState
+  on(AuthActions.logout, (state) => ({
+    user: null,
+    token: null,
+    loading: false,
+    error: null,
+    isAuthenticated: false
   }))
 
 )

@@ -13,6 +13,7 @@ import { CarTableComponent } from '../car-table/car-table.component';
 import * as AuthActions from '../../store/auth/auth.actions';
 import * as CarActions from '../../store/cars/car.actions';
 import * as CarSelectors from '../../store/cars/car.selectors';
+import { selectIsAuthenticated } from '../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-car-list',
@@ -32,6 +33,7 @@ export class CarListComponent implements OnInit, OnDestroy {
   cars$: Observable<Car[]>;
   marques$: Observable<Marque[]>;
   loading$: Observable<boolean>;
+  isAuthenticated$: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -40,6 +42,7 @@ export class CarListComponent implements OnInit, OnDestroy {
     this.cars$ = this.store.select(CarSelectors.selectCars);
     this.marques$ = this.store.select(CarSelectors.selectMarques);
     this.loading$ = this.store.select(CarSelectors.selectLoading);
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
   ngOnInit() {
@@ -76,6 +79,5 @@ export class CarListComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.store.dispatch(AuthActions.logout());
-    this.router.navigate(['/login']);
   }
 }
