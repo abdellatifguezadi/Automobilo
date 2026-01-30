@@ -10,16 +10,16 @@
     <div class="space-y-2">
       <button
         (click)="onMarqueClick(null)"
-        [class]="selectedMarque === null
+        [class]="(selectedMarque$ | async) === null
           ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md'
           : 'bg-gray-50 text-gray-700 hover:bg-red-50 hover:text-red-600'"
         class="w-full text-left px-4 py-2.5 font-medium focus:outline-none">
         Toutes les marques
       </button>
-      @for (marque of marques; track marque.id) {
+      @for (marque of marques$ | async; track marque.id) {
         <button
           (click)="onMarqueClick(marque.id)"
-          [class]="selectedMarque === marque.id
+          [class]="(selectedMarque$ | async) === marque.id
             ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-md'
             : 'bg-gray-50 text-gray-700 hover:bg-red-50 hover:text-red-600'"
           class="w-full text-left px-4 py-2.5 font-medium focus:outline-none">
@@ -30,13 +30,15 @@
   </div>
 
   <div class="p-6 border-t border-gray-200 bg-gray-50">
-    <button
-      (click)="onLogout()"
-      class="w-full flex items-center justify-center space-x-2 px-4 py-2.5 bg-gray-800 text-white font-semibold hover:bg-gray-900 focus:outline-none">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-      </svg>
-      <span>Déconnexion</span>
-    </button>
+    @if (isAuthenticated$ | async) {
+      <button
+        (click)="onLogout()"
+        class="w-full flex items-center justify-center space-x-2 px-4 py-2.5 bg-gray-800 text-white font-semibold hover:bg-gray-900 focus:outline-none">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+        </svg>
+        <span>Déconnexion</span>
+      </button>
+    }
   </div>
 </div>

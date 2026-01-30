@@ -7,6 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { Car, Marque } from '../../models/car.model';
 import * as CarActions from '../../store/cars/car.actions';
 import * as CarSelectors from '../../store/cars/car.selectors';
+import { selectIsAuthenticated } from '../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-car-detail',
@@ -22,6 +23,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
   marques$: Observable<Marque[]>;
   loading$: Observable<boolean>;
   marqueName$: Observable<string>;
+  isAuthenticated$: Observable<boolean>;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +34,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
     this.marques$ = this.store.select(CarSelectors.selectMarques);
     this.loading$ = this.store.select(CarSelectors.selectLoading);
     this.marqueName$ = this.store.select(CarSelectors.selectSelectedCarMarqueName);
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated);
   }
 
   ngOnInit() {
@@ -49,5 +52,13 @@ export class CarDetailComponent implements OnInit, OnDestroy {
 
   goBack() {
     this.router.navigate(['/cars']);
+  }
+
+  updateCar() {
+    console.log('Update car');
+  }
+
+  deleteCar() {
+    console.log('Delete car');
   }
 }

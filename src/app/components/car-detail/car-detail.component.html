@@ -60,7 +60,19 @@
 
         <!-- Information Grid -->
         <div class="p-6 flex-1">
-          <h2 class="text-xl font-bold text-gray-900 mb-6">Informations détaillées</h2>
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-900">Informations détaillées</h2>
+            @if (isAuthenticated$ | async) {
+              <div class="flex gap-3">
+                <button (click)="updateCar()" class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 transition-colors font-medium focus:outline-none">
+                  Modifier
+                </button>
+                <button (click)="deleteCar()" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700 transition-colors font-medium focus:outline-none">
+                  Supprimer
+                </button>
+              </div>
+            }
+          </div>
 
           <div class="grid grid-cols-2 gap-x-12 gap-y-6">
 
