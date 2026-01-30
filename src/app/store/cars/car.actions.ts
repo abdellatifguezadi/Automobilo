@@ -16,3 +16,7 @@ export const loadCarByIdFailure = createAction('[Car] Load Car By Id Failure', p
 export const setMarqueFilter = createAction('[Car] Set Marque Filter', props<{ marqueId: number | null }>());
 export const setAvailabilityFilter = createAction('[Car] Set Availability Filter', props<{ showAvailableOnly: boolean }>());
 export const setSearchQuery = createAction('[Car] Set Search Query', props<{ query: string }>());
+
+export const createCar = createAction('[Car] Create Car', props<{ car: Omit<Car, 'id'> }>());
+export const createCarSuccess = createAction('[Car] Create Car Success', props<{ car: Car}>());
+export const createCarFailure = createAction('[Car] Create Car Failure', props<{ error: string }>());
