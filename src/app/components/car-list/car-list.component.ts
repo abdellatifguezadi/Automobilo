@@ -22,14 +22,12 @@ import * as CarSelectors from '../../store/cars/car.selectors';
   styleUrl: './car-list.component.css'
 })
 export class CarListComponent implements OnInit, OnDestroy {
-  filteredCars: Car[] = [];
   viewMode: 'table' | 'grid' = 'grid';
   selectedMarque: number | null = null;
   showAvailableOnly = false;
   searchQuery = '';
   
   private destroy$ = new Subject<void>();
-  private marques: Marque[] = [];
 
   cars$: Observable<Car[]>;
   marques$: Observable<Marque[]>;
@@ -74,26 +72,6 @@ export class CarListComponent implements OnInit, OnDestroy {
   setAvailabilityFilter(available: boolean) {
     this.showAvailableOnly = available;
     this.store.dispatch(CarActions.setAvailabilityFilter({ showAvailableOnly: available }));
-  }
-
-  private applyFilters(cars: Car[]) {
-    this.filteredCars = cars.filter(car => {
-      const marqueMatch = !this.selectedMarque || car.marque_id === this.selectedMarque;
-      const availabilityMatch = !this.showAvailableOnly || car.disponibilite;
-
-      const searchLower = this.searchQuery.toLowerCase();
-      const marqueNom = this.getMarqueById(car.marque_id)?.titre.toLowerCase() || '';
-      const searchMatch = !this.searchQuery ||
-        marqueNom.includes(searchLower) ||
-        car.modele.toLowerCase().includes(searchLower) ||
-        car.carburant.toLowerCase().includes(searchLower);
-
-      return marqueMatch && availabilityMatch && searchMatch;
-    });
-  }
-  
-  private getMarqueById(id: number): Marque | undefined {
-    return this.marques.find(marque => marque.id === id);
   }
 
   onLogout() {

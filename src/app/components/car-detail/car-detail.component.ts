@@ -17,11 +17,11 @@ import * as CarSelectors from '../../store/cars/car.selectors';
 })
 export class CarDetailComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
-  private marques: Marque[] = [];
 
   car$: Observable<Car | null>;
   marques$: Observable<Marque[]>;
   loading$: Observable<boolean>;
+  marqueName$: Observable<string>;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +31,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
     this.car$ = this.store.select(CarSelectors.selectSelectedCar);
     this.marques$ = this.store.select(CarSelectors.selectMarques);
     this.loading$ = this.store.select(CarSelectors.selectLoading);
+    this.marqueName$ = this.store.select(CarSelectors.selectSelectedCarMarqueName);
   }
 
   ngOnInit() {
@@ -39,26 +40,11 @@ export class CarDetailComponent implements OnInit, OnDestroy {
       this.store.dispatch(CarActions.loadCarById({ id }));
       this.store.dispatch(CarActions.loadMarques());
     }
-    
-    // Subscribe to marques for getting marque name
-    this.marques$.pipe(takeUntil(this.destroy$)).subscribe(marques => {
-      this.marques = marques;
-    });
   }
-  
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  getMarqueName(): Observable<string> {
-    return combineLatest([this.car$, this.marques$]).pipe(
-      map(([car, marques]) => {
-        if (!car) return '';
-        const marque = marques.find(m => m.id === car.marque_id);
-        return marque?.titre || 'Unknown';
-      })
-    );
   }
 
   goBack() {

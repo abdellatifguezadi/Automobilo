@@ -18,15 +18,24 @@ export const selectFilteredCars = createSelector(
     return cars.filter(car => {
       const marqueMatch = !filters.marqueId || car.marque_id === filters.marqueId;
       const availabilityMatch = !filters.showAvailableOnly || car.disponibilite;
-      
+
       const searchLower = filters.searchQuery.toLowerCase();
       const marqueNom = marques.find(m => m.id === car.marque_id)?.titre.toLowerCase() || '';
       const searchMatch = !filters.searchQuery ||
         marqueNom.includes(searchLower) ||
         car.modele.toLowerCase().includes(searchLower) ||
         car.carburant.toLowerCase().includes(searchLower);
-      
+
       return marqueMatch && availabilityMatch && searchMatch;
     });
+  }
+);
+
+export const selectSelectedCarMarqueName = createSelector(
+  selectSelectedCar,
+  selectMarques,
+  (car, marques) => {
+    if (!car) return '';
+    return marques.find(m => m.id === car.marque_id)?.titre || 'Unknown';
   }
 );
