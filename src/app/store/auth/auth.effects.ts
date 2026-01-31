@@ -42,6 +42,19 @@ export class AuthEffects{
     { dispatch: false }
   );
 
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.logout),
+        tap(() => {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+          this.router.navigate(['/']);
+        })
+      ),
+    { dispatch: false }
+  );
+
 
 
 }
