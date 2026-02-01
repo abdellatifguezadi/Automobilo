@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { takeUntil, filter, map } from 'rxjs/operators';
 import { Car, Marque } from '../../models/car.model';
+import { HeaderComponent } from '../header/header.component';
 import * as CarActions from '../../store/cars/car.actions';
 import * as CarSelectors from '../../store/cars/car.selectors';
 import { selectIsAuthenticated } from '../../store/auth/auth.selectors';
@@ -12,7 +13,7 @@ import { selectIsAuthenticated } from '../../store/auth/auth.selectors';
 @Component({
   selector: 'app-car-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, HeaderComponent],
   templateUrl: './car-detail.component.html',
   styleUrl: './car-detail.component.css'
 })
