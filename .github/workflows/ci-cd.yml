@@ -34,4 +34,4 @@ jobs:
     - name: Build and push Docker image
       run: |
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/automobilo:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/automobilo:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/automobilo:latest
