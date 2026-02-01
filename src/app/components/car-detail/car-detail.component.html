@@ -1,4 +1,7 @@
-<div class="bg-gray-50 min-h-screen">
+<!-- Header -->
+<app-header [showViewToggle]="false"></app-header>
+
+<div class="bg-gray-50 min-h-screen pt-20">
   <!-- Loading State -->
   @if (loading$ | async) {
     <div class="flex justify-center items-center h-96">
