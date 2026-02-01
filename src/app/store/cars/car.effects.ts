@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { map, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap, tap } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 import { CarService } from '../../services/car.service';
 import * as CarActions from './car.actions';
 
@@ -9,6 +10,7 @@ import * as CarActions from './car.actions';
 export class CarEffects {
   private actions$ = inject(Actions);
   private carService = inject(CarService);
+  private toastr = inject(ToastrService);
 
   loadCars$ = createEffect(() =>
     this.actions$.pipe(
@@ -56,5 +58,27 @@ export class CarEffects {
         )
       )
     )
+  );
+
+  createCarSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CarActions.createCarSuccess),
+        tap(() => {
+          this.toastr.success('Voiture créée avec succès', '', { closeButton: true });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  createCarFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CarActions.createCarFailure),
+        tap(({ error }) => {
+          this.toastr.error(error || 'Une erreur est survenue', '', { closeButton: true });
+        })
+      ),
+    { dispatch: false }
   );
 }

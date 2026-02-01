@@ -33,16 +33,20 @@ export const carReducer = createReducer(
   on(CarActions.loadCars, state => ({ ...state, loading: true, error: null })),
   on(CarActions.loadCarsSuccess, (state, { cars }) => ({ ...state, cars, loading: false })),
   on(CarActions.loadCarsFailure, (state, { error }) => ({ ...state, error, loading: false })),
-  
+
   on(CarActions.loadMarques, state => ({ ...state, loading: true, error: null })),
   on(CarActions.loadMarquesSuccess, (state, { marques }) => ({ ...state, marques, loading: false })),
   on(CarActions.loadMarquesFailure, (state, { error }) => ({ ...state, error, loading: false })),
-  
+
   on(CarActions.loadCarById, state => ({ ...state, loading: true, error: null })),
   on(CarActions.loadCarByIdSuccess, (state, { car }) => ({ ...state, selectedCar: car, loading: false })),
   on(CarActions.loadCarByIdFailure, (state, { error }) => ({ ...state, error, loading: false })),
-  
+
   on(CarActions.setMarqueFilter, (state, { marqueId }) => ({ ...state, filters: { ...state.filters, marqueId } })),
   on(CarActions.setAvailabilityFilter, (state, { showAvailableOnly }) => ({ ...state, filters: { ...state.filters, showAvailableOnly } })),
-  on(CarActions.setSearchQuery, (state, { query }) => ({ ...state, filters: { ...state.filters, searchQuery: query } }))
+  on(CarActions.setSearchQuery, (state, { query }) => ({ ...state, filters: { ...state.filters, searchQuery: query } })),
+
+  on(CarActions.createCar, state => ({ ...state, loading: true, error: null})),
+  on(CarActions.createCarSuccess, (state, { car }) => ({ ...state, cars: [...state.cars, car], loading: false })),
+  on(CarActions.createCarFailure, (state, { error }) => ({ ...state, error, loading: false })),
 );
