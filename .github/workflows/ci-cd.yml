@@ -29,9 +29,9 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/automobilo:latest .
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/automobilo:latest .
         docker push ${{ secrets.DOCKER_USERNAME }}/automobilo:latest
