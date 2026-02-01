@@ -68,14 +68,7 @@ export class CarListComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  onMarqueSelected(marqueId: number | null) {
-    this.store.dispatch(CarActions.setMarqueFilter({ marqueId }));
-  }
 
-  onAvailabilityToggled() {
-    this.store.dispatch(CarActions.setAvailabilityFilter({ showAvailableOnly: !this.showAvailableOnly }));
-    this.showAvailableOnly = !this.showAvailableOnly;
-  }
 
   onViewModeToggled() {
     this.viewMode = this.viewMode === 'table' ? 'grid' : 'table';
@@ -90,9 +83,7 @@ export class CarListComponent implements OnInit, OnDestroy {
     this.store.dispatch(CarActions.setAvailabilityFilter({ showAvailableOnly: available }));
   }
 
-  onLogout() {
-    this.store.dispatch(AuthActions.logout());
-  }
+
 
   openModal() {
     this.showModal = true;

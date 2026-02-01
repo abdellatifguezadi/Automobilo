@@ -159,6 +159,16 @@
       "disponibilite": true,
       "dateDeMiseEnVente": "1997-07-15",
       "id": 16
+    },
+    {
+      "marque_id": 5,
+      "modele": "Quaerat non dignissi",
+      "prix": 10,
+      "carburant": "essence",
+      "image": "Minus perferendis a ",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "1991-04-04",
+      "id": 17
     }
   ],
   "marques": [
