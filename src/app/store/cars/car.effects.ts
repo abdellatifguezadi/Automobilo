@@ -105,6 +105,13 @@ export class CarEffects {
     {dispatch: false}
   );
 
+  reloadCarAfterUpdate$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CarActions.updateCarSuccess),
+      map(({ car }) => CarActions.loadCarById({ id: car.id }))
+    )
+  );
+
   updateCarFailure$ = createEffect(
     () =>
       this.actions$.pipe(

@@ -64,7 +64,7 @@
             <h2 class="text-xl font-bold text-gray-900">Informations détaillées</h2>
             @if (isAuthenticated$ | async) {
               <div class="flex gap-3">
-                <button (click)="updateCar()" class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 transition-colors font-medium focus:outline-none">
+                <button (click)="updateCar(car)" class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 transition-colors font-medium focus:outline-none">
                   Modifier
                 </button>
                 <button (click)="deleteCar()" class="bg-red-600 text-white px-4 py-2 hover:bg-red-700 transition-colors font-medium focus:outline-none">
@@ -138,3 +138,8 @@
     </div>
   }
 </div>
+
+@if (showModal) {
+  <app-car-form-modal [carToEdit]="carToEdit" (close)="closeModal()"></app-car-form-modal>
+}
+

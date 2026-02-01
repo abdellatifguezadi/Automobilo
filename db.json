@@ -11,14 +11,14 @@
       "dateDeMiseEnVente": "21/01/2023"
     },
     {
-      "id": 2,
-      "marque_id": 2,
-      "modele": "Clio",
-      "prix": 185000,
-      "carburant": "essence",
-      "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400",
-      "disponibilite": true,
-      "dateDeMiseEnVente": "15/02/2023"
+      "marque_id": 1,
+      "modele": "Iure incidunt accus",
+      "prix": 38,
+      "carburant": "hybride",
+      "image": "Velit nihil deserunt",
+      "disponibilite": false,
+      "dateDeMiseEnVente": "1996-07-07",
+      "id": 2
     },
     {
       "id": 3,
