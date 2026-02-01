@@ -20,3 +20,7 @@ export const setSearchQuery = createAction('[Car] Set Search Query', props<{ que
 export const createCar = createAction('[Car] Create Car', props<{ car: Omit<Car, 'id'> }>());
 export const createCarSuccess = createAction('[Car] Create Car Success', props<{ car: Car}>());
 export const createCarFailure = createAction('[Car] Create Car Failure', props<{ error: string }>());
+
+export const updateCar = createAction('[Car] Update Car', props<{ id: number; car: Partial<Car> }>());
+export const updateCarSuccess = createAction('[Car] Update Car Success', props<{ car: Car}>());
+export const updateCarFailure = createAction('[Car] Update Car Failure', props<{ error: string}>());

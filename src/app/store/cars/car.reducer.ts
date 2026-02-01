@@ -49,4 +49,13 @@ export const carReducer = createReducer(
   on(CarActions.createCar, state => ({ ...state, loading: true, error: null})),
   on(CarActions.createCarSuccess, (state, { car }) => ({ ...state, cars: [...state.cars, car], loading: false })),
   on(CarActions.createCarFailure, (state, { error }) => ({ ...state, error, loading: false })),
+
+  on(CarActions.updateCar, state => ({ ...state, loading: true, error: null })),
+  on(CarActions.updateCarSuccess, (state, { car }) => ({
+    ...state,
+    cars: state.cars.map(c => c.id === car.id ? car : c),
+    loading: false
+  })),
+  on(CarActions.updateCarFailure, (state, { error }) => ({ ...state, error, loading: false })),
+
 );

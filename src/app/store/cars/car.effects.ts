@@ -1,9 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { map, catchError, switchMap, tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { CarService } from '../../services/car.service';
+import {Injectable, inject} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {of} from 'rxjs';
+import {map, catchError, switchMap, tap} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
+import {CarService} from '../../services/car.service';
 import * as CarActions from './car.actions';
 
 @Injectable()
@@ -65,20 +65,62 @@ export class CarEffects {
       this.actions$.pipe(
         ofType(CarActions.createCarSuccess),
         tap(() => {
-          this.toastr.success('Voiture créée avec succès', '', { closeButton: true });
+          this.toastr.success('Voiture créée avec succès', '', {closeButton: true});
         })
       ),
-    { dispatch: false }
+    {dispatch: false}
   );
 
   createCarFailure$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(CarActions.createCarFailure),
-        tap(({ error }) => {
-          this.toastr.error(error || 'Une erreur est survenue', '', { closeButton: true });
+        tap(({error}) => {
+          this.toastr.error(error || 'Une erreur est survenue', '', {closeButton: true});
         })
       ),
-    { dispatch: false }
+    {dispatch: false}
   );
+
+  updateCar$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CarActions.updateCar),
+      switchMap(({id, car}) =>
+        this.carService.updateCar(id, car).pipe(
+          map(updateCar => CarActions.updateCarSuccess({car: updateCar})),
+          catchError(error => of(CarActions.updateCarFailure({error: error.message || "error"})))
+        )
+      )
+    )
+  );
+
+  updateCarSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CarActions.updateCarSuccess),
+        tap(() => {
+          this.toastr.success('Voiture modifiée avec succès', '', {closeButton: true});
+        })
+      ),
+    {dispatch: false}
+  );
+
+  reloadCarAfterUpdate$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CarActions.updateCarSuccess),
+      map(({ car }) => CarActions.loadCarById({ id: car.id }))
+    )
+  );
+
+  updateCarFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CarActions.updateCarFailure),
+        tap(({error}) => {
+          this.toastr.error(error || 'Erreur lors de la modification', '', {closeButton: true});
+        })
+      ),
+    {dispatch: false}
+  );
+
 }
