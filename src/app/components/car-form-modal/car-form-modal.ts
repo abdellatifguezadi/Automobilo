@@ -1,9 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { Marque } from '../../models/car.model';
+import { Car, Marque } from '../../models/car.model';
 import * as CarActions from '../../store/cars/car.actions';
 import * as CarSelectors from '../../store/cars/car.selectors';
 
@@ -15,10 +15,13 @@ import * as CarSelectors from '../../store/cars/car.selectors';
   styleUrl: './car-form-modal.css'
 })
 export class CarFormModal implements OnInit {
+  @Input() carToEdit: Car | null = null;
   @Output() close = new EventEmitter<void>();
 
   private fb = inject(FormBuilder);
   private store = inject(Store);
+
+  isEditMode = false;
 
   carForm!: FormGroup;
   marques$: Observable<Marque[]>;
@@ -31,6 +34,19 @@ export class CarFormModal implements OnInit {
 
   ngOnInit() {
     this.initForm();
+
+    if (this.carToEdit) {
+      this.isEditMode = true;
+      this.carForm.patchValue({
+        marque_id: this.carToEdit.marque_id,
+        modele: this.carToEdit.modele,
+        prix: this.carToEdit.prix,
+        carburant: this.carToEdit.carburant,
+        image: this.carToEdit.image,
+        disponibilite: this.carToEdit.disponibilite,
+        dateDeMiseEnVente: this.carToEdit.dateDeMiseEnVente
+      });
+    }
   }
 
   private initForm() {
@@ -53,7 +69,13 @@ export class CarFormModal implements OnInit {
         prix: Number(this.carForm.value.prix)
       };
 
-      this.store.dispatch(CarActions.createCar({ car: carData }));
+      if (this.isEditMode && this.carToEdit) {
+        this.store.dispatch(CarActions.updateCar({ id: this.carToEdit.id, car: carData }));
+      } else {
+        this.store.dispatch(CarActions.createCar({ car: carData }));
+      }
+
+      this.close.emit();
     } else {
       this.markFormGroupTouched(this.carForm);
     }

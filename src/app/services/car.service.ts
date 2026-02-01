@@ -29,4 +29,8 @@ export class CarService {
   createCar(car: Omit<Car, 'id'>): Observable<Car>{
     return this.http.post<Car>(`${this.apiUrl}/cars`, car);
   }
+
+  updateCar(id: number,car: Partial<Car>): Observable<Car>{
+    return this.http.put<Car>(`${this.apiUrl}/cars/${id}`, car);
+  }
 }

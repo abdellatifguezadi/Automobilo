@@ -2,10 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subject, combineLatest } from 'rxjs';
-import { takeUntil, filter, map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import { Car, Marque } from '../../models/car.model';
-import { HeaderComponent } from '../header/header.component';
+import { CarFormModal } from '../car-form-modal/car-form-modal';
 import * as CarActions from '../../store/cars/car.actions';
 import * as CarSelectors from '../../store/cars/car.selectors';
 import { selectIsAuthenticated } from '../../store/auth/auth.selectors';
@@ -13,7 +12,7 @@ import { selectIsAuthenticated } from '../../store/auth/auth.selectors';
 @Component({
   selector: 'app-car-detail',
   standalone: true,
-  imports: [CommonModule, RouterModule, HeaderComponent],
+  imports: [CommonModule, RouterModule, CarFormModal],
   templateUrl: './car-detail.component.html',
   styleUrl: './car-detail.component.css'
 })
@@ -25,6 +24,9 @@ export class CarDetailComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
   marqueName$: Observable<string>;
   isAuthenticated$: Observable<boolean>;
+
+  showModal = false;
+  carToEdit: Car | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +46,8 @@ export class CarDetailComponent implements OnInit, OnDestroy {
       this.store.dispatch(CarActions.loadCarById({ id }));
       this.store.dispatch(CarActions.loadMarques());
     }
+
+
   }
 
   ngOnDestroy() {
@@ -55,8 +59,14 @@ export class CarDetailComponent implements OnInit, OnDestroy {
     this.router.navigate(['/cars']);
   }
 
-  updateCar() {
-    console.log('Update car');
+  updateCar(car: Car) {
+    this.carToEdit = car;
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+    this.carToEdit = null;
   }
 
   deleteCar() {

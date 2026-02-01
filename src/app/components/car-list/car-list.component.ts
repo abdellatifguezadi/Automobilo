@@ -56,7 +56,7 @@ export class CarListComponent implements OnInit, OnDestroy {
     this.store.dispatch(CarActions.loadMarques());
 
     this.actions$.pipe(
-      ofType(CarActions.createCarSuccess),
+      ofType(CarActions.createCarSuccess, CarActions.updateCarSuccess),
       takeUntil(this.destroy$)
     ).subscribe(() => {
       this.showModal = false;
