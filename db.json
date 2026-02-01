@@ -39,13 +39,148 @@
       "image": "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400",
       "disponibilite": true,
       "dateDeMiseEnVente": "05/04/2023"
+    },
+    {
+      "marque_id": 3,
+      "modele": "3002",
+      "prix": 7,
+      "carburant": "electrique",
+      "image": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=400",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "1982-04-15",
+      "id": 5
+    },
+    {
+      "marque_id": 3,
+      "modele": "Maiores aute quos vo",
+      "prix": 87,
+      "carburant": "electrique",
+      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "disponibilite": false,
+      "dateDeMiseEnVente": "2018-08-16",
+      "id": 6
+    },
+    {
+      "marque_id": 1,
+      "modele": "323",
+      "prix": 2222,
+      "carburant": "electrique",
+      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "2001-05-05",
+      "id": 7
+    },
+    {
+      "marque_id": 1,
+      "modele": "In sit aperiam ut a",
+      "prix": 42,
+      "carburant": "essence",
+      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dhttps://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "disponibilite": false,
+      "dateDeMiseEnVente": "1989-03-03",
+      "id": 8
+    },
+    {
+      "marque_id": 1,
+      "modele": "54",
+      "prix": 2424,
+      "carburant": "diesel",
+      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3Dhttps://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "1111-11-11",
+      "id": 9
+    },
+    {
+      "marque_id": 3,
+      "modele": "Incidunt aliqua De",
+      "prix": 20,
+      "carburant": "electrique",
+      "image": "Vel voluptates tempo",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "2012-11-24",
+      "id": 10
+    },
+    {
+      "marque_id": 4,
+      "modele": "Soluta est earum vit",
+      "prix": 67,
+      "carburant": "essence",
+      "image": "Ea et modi amet con",
+      "disponibilite": false,
+      "dateDeMiseEnVente": "2017-12-27",
+      "id": 11
+    },
+    {
+      "marque_id": 3,
+      "modele": "Eum sunt mollit id a",
+      "prix": 24,
+      "carburant": "diesel",
+      "image": "Qui possimus ea ver",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "1979-01-20",
+      "id": 12
+    },
+    {
+      "marque_id": 4,
+      "modele": "Saepe iure cupidatat",
+      "prix": 57,
+      "carburant": "hybride",
+      "image": "Sed qui dolore fugia",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "1996-10-01",
+      "id": 13
+    },
+    {
+      "marque_id": 4,
+      "modele": "Aut dicta alias et e",
+      "prix": 70,
+      "carburant": "diesel",
+      "image": "Amet quibusdam nobi",
+      "disponibilite": false,
+      "dateDeMiseEnVente": "2016-04-27",
+      "id": 14
+    },
+    {
+      "marque_id": 1,
+      "modele": "Molestiae cumque dol",
+      "prix": 57,
+      "carburant": "diesel",
+      "image": "Proident iste quas ",
+      "disponibilite": false,
+      "dateDeMiseEnVente": "2022-10-14",
+      "id": 15
+    },
+    {
+      "marque_id": 3,
+      "modele": "Architecto accusanti",
+      "prix": 44,
+      "carburant": "essence",
+      "image": "Aut ipsum voluptatem",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "1997-07-15",
+      "id": 16
     }
   ],
   "marques": [
-    { "id": 1, "titre": "Peugeot" },
-    { "id": 2, "titre": "Renault" },
-    { "id": 3, "titre": "Citroën" },
-    { "id": 4, "titre": "BMW" },
-    { "id": 5, "titre": "Mercedes" }
+    {
+      "id": 1,
+      "titre": "Peugeot"
+    },
+    {
+      "id": 2,
+      "titre": "Renault"
+    },
+    {
+      "id": 3,
+      "titre": "Citroën"
+    },
+    {
+      "id": 4,
+      "titre": "BMW"
+    },
+    {
+      "id": 5,
+      "titre": "Mercedes"
+    }
   ]
 }
