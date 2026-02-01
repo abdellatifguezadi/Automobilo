@@ -17,7 +17,7 @@ jobs:
         node-version: '20'
         cache: 'npm'
     - run: rm -rf node_modules package-lock.json
-    - run: npm install
+    - run: npm install --force
     - run: npm run build
 
   build-and-push:
