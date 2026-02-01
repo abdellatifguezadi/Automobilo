@@ -1,6 +1,8 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
@@ -16,9 +18,16 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
-    provideStore({ 
+    provideAnimations(),
+    provideToastr({
+      timeOut: 0,
+      positionClass: 'toast-top-right',
+      closeButton: true,
+      preventDuplicates: true
+    }),
+    provideStore({
       auth: authReducer,
-      cars: carReducer 
+      cars: carReducer
     }),
     provideEffects([AuthEffects, CarEffects])
   ]
