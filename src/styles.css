@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import 'ngx-toastr/toastr.css';
 
 .toast-container {
   position: fixed !important;

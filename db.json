@@ -149,6 +149,16 @@
       "disponibilite": false,
       "dateDeMiseEnVente": "2022-10-14",
       "id": 15
+    },
+    {
+      "marque_id": 3,
+      "modele": "Architecto accusanti",
+      "prix": 44,
+      "carburant": "essence",
+      "image": "Aut ipsum voluptatem",
+      "disponibilite": true,
+      "dateDeMiseEnVente": "1997-07-15",
+      "id": 16
     }
   ],
   "marques": [
