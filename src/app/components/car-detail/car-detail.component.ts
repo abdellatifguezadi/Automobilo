@@ -70,6 +70,9 @@ export class CarDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteCar() {
-    console.log('Delete car');
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    if (id && confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?')) {
+      this.store.dispatch(CarActions.deleteCar({ id }));
+    }
   }
 }

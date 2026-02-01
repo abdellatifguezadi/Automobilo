@@ -30,7 +30,11 @@ export class CarService {
     return this.http.post<Car>(`${this.apiUrl}/cars`, car);
   }
 
-  updateCar(id: number,car: Partial<Car>): Observable<Car>{
+  updateCar(id: number, car: Partial<Car>): Observable<Car> {
     return this.http.put<Car>(`${this.apiUrl}/cars/${id}`, car);
+  }
+
+  deleteCar(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/cars/${id}`);
   }
 }
