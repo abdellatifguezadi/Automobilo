@@ -1,5 +1,6 @@
 import {Injectable, inject} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Router} from '@angular/router';
 import {of} from 'rxjs';
 import {map, catchError, switchMap, tap} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
@@ -11,6 +12,7 @@ export class CarEffects {
   private actions$ = inject(Actions);
   private carService = inject(CarService);
   private toastr = inject(ToastrService);
+  private router = inject(Router);
 
   loadCars$ = createEffect(() =>
     this.actions$.pipe(
@@ -118,6 +120,41 @@ export class CarEffects {
         ofType(CarActions.updateCarFailure),
         tap(({error}) => {
           this.toastr.error(error || 'Erreur lors de la modification', '', {closeButton: true});
+        })
+      ),
+    {dispatch: false}
+  );
+
+  deleteCar$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CarActions.deleteCar),
+      switchMap(({id}) =>
+        this.carService.deleteCar(id).pipe(
+          map(() => CarActions.deleteCarSuccess({id})),
+          catchError(error => of(CarActions.deleteCarFailure({error: error.message || 'Erreur lors de la suppression'})))
+        )
+      )
+    )
+  );
+
+  deleteCarSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CarActions.deleteCarSuccess),
+        tap(() => {
+          this.toastr.success('Voiture supprimée avec succès', '', {closeButton: true});
+          this.router.navigate(['/cars']);
+        })
+      ),
+    {dispatch: false}
+  );
+
+  deleteCarFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CarActions.deleteCarFailure),
+        tap(({error}) => {
+          this.toastr.error(error || 'Erreur lors de la suppression', '', {closeButton: true});
         })
       ),
     {dispatch: false}

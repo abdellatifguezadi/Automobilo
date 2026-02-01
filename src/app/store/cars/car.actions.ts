@@ -24,3 +24,8 @@ export const createCarFailure = createAction('[Car] Create Car Failure', props<{
 export const updateCar = createAction('[Car] Update Car', props<{ id: number; car: Partial<Car> }>());
 export const updateCarSuccess = createAction('[Car] Update Car Success', props<{ car: Car}>());
 export const updateCarFailure = createAction('[Car] Update Car Failure', props<{ error: string}>());
+
+export const deleteCar = createAction('[Car] Delete Car', props<{ id: number }>());
+export const deleteCarSuccess = createAction('[Car] Delete Car Success', props<{ id: number }>());
+export const deleteCarFailure = createAction('[Car] Delete Car Failure', props<{ error: string }>());
+

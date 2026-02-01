@@ -58,4 +58,11 @@ export const carReducer = createReducer(
   })),
   on(CarActions.updateCarFailure, (state, { error }) => ({ ...state, error, loading: false })),
 
+  on(CarActions.deleteCar, state => ({ ...state, loading: true, error: null })),
+  on(CarActions.deleteCarSuccess, (state, { id }) => ({
+    ...state,
+    cars: state.cars.filter(c => c.id !== id),
+    loading: false
+  })),
+  on(CarActions.deleteCarFailure, (state, { error }) => ({ ...state, error, loading: false })),
 );
