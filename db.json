@@ -11,16 +11,6 @@
       "dateDeMiseEnVente": "21/01/2023"
     },
     {
-      "marque_id": 1,
-      "modele": "208",
-      "prix": 185000,
-      "carburant": "hybride",
-      "image": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
-      "disponibilite": false,
-      "dateDeMiseEnVente": "1996-07-07",
-      "id": 2
-    },
-    {
       "id": 3,
       "marque_id": 3,
       "modele": "C3",
@@ -121,26 +111,6 @@
       "id": 12
     },
     {
-      "marque_id": 4,
-      "modele": "M3",
-      "prix": 850000,
-      "carburant": "hybride",
-      "image": "https://images.unsplash.com/photo-1617886322168-72b886573c09?w=800&q=80",
-      "disponibilite": true,
-      "dateDeMiseEnVente": "1996-10-01",
-      "id": 13
-    },
-    {
-      "marque_id": 4,
-      "modele": "Serie 5",
-      "prix": 625000,
-      "carburant": "diesel",
-      "image": "https://images.unsplash.com/photo-1617531653520-bd466e4e280d?w=800&q=80",
-      "disponibilite": false,
-      "dateDeMiseEnVente": "2016-04-27",
-      "id": 14
-    },
-    {
       "marque_id": 1,
       "modele": "Rifter",
       "prix": 265000,
@@ -159,16 +129,6 @@
       "disponibilite": true,
       "dateDeMiseEnVente": "1997-07-15",
       "id": 16
-    },
-    {
-      "marque_id": 5,
-      "modele": "Quaerat non dignissi",
-      "prix": 10,
-      "carburant": "essence",
-      "image": "Minus perferendis a ",
-      "disponibilite": true,
-      "dateDeMiseEnVente": "1991-04-04",
-      "id": 17
     }
   ],
   "marques": [

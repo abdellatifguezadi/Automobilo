@@ -28,6 +28,7 @@ export class CarDetailComponent implements OnInit, OnDestroy {
 
   showModal = false;
   carToEdit: Car | null = null;
+  showDeleteConfirm = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -71,9 +72,18 @@ export class CarDetailComponent implements OnInit, OnDestroy {
   }
 
   deleteCar() {
+    this.showDeleteConfirm = true;
+  }
+
+  confirmDelete() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (id && confirm('Êtes-vous sûr de vouloir supprimer cette voiture ?')) {
+    if (id) {
       this.store.dispatch(CarActions.deleteCar({ id }));
+      this.showDeleteConfirm = false;
     }
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirm = false;
   }
 }
